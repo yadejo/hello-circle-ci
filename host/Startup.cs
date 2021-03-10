@@ -11,8 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MovApi.Host.Ioc;
+using MediatR;
+using MovApi.Domain.Handlers;
 
-namespace hello_circle_ci
+namespace MovApi.Host
 {
     public class Startup
     {
@@ -30,8 +33,11 @@ namespace hello_circle_ci
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "hello_circle_ci", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "host", Version = "v1" });
             });
+
+            services.RegisterDependencies();
+            services.AddMediatR(typeof(GetMoviesHandler));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +47,7 @@ namespace hello_circle_ci
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "hello_circle_ci v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "host v1"));
             }
 
             app.UseHttpsRedirection();
@@ -49,6 +55,8 @@ namespace hello_circle_ci
             app.UseRouting();
 
             app.UseAuthorization();
+
+    
 
             app.UseEndpoints(endpoints =>
             {
