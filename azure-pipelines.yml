@@ -29,3 +29,10 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
+  
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    appType: 'webAppLinux'
+    WebAppName: 'hello-circle-ci'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
