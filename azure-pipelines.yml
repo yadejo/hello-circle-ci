@@ -10,24 +10,19 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
 - task: DotNetCoreCLI@2
-  displayName: Restore
+  displayName: 'Restore packages'
   inputs:
     command: restore
     projects: '**/*.csproj'
+
 - task: DotNetCoreCLI@2
-  displayName: Test
+  displayName: 'Run Tests'
   inputs:
     command: 'test'
     projects: '**/*.test/*.csproj'
     testRunTitle: 'Run unit tests'
+
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -35,11 +30,15 @@ steps:
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
+  displayName: Publish
   inputs:
     command: 'publish'
     publishWebProjects: true
+    zipAfterPublish: true
+
   
 - task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy to azure website'
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
