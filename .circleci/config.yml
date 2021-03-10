@@ -41,7 +41,7 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   main: 
     jobs:
-      - build-and-test
-        context:
+      - build-and-test:
+          context:
             - build-env-vars
             - docker-hub-creds
