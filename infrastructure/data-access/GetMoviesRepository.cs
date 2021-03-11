@@ -12,7 +12,8 @@ namespace MovApi.Infrastructure.DataAccess
             return Task.FromResult(new List<Movie> {
                 new Movie("Twelve Angry Men", 8),
                 new Movie("Interstellar", 9),
-                new Movie("A Rainy Day In New York", 7)
+                new Movie("A Rainy Day In New York", 7),
+                new Movie("La la land", 8),
             });
         }
     }
