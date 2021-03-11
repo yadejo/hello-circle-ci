@@ -35,13 +35,10 @@ steps:
     command: 'publish'
     publishWebProjects: true
     zipAfterPublish: true
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
 
-  
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Deploy to azure website'
+- task: PublishBuildArtifacts@1
   inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
-    appType: 'webAppLinux'
-    WebAppName: 'hello-circle-ci'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
