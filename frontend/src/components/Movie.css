@@ -1,0 +1,7 @@
+.StarRating {
+    display: flex;
+}
+
+.StarRating_star::before {
+    content: '★';
+}
