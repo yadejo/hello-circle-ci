@@ -6,9 +6,6 @@
 trigger:
   - master
 
-variables:
-  uiSource: "frontend"
-  uiBuild: "$(uiSource)/build"
 
 pool:
   vmImage: 'windows-latest'
@@ -20,19 +17,20 @@ steps:
     displayName: "Install Node.js"
 
   - script: |
-      pushd $(uiSource)
+      ls
       npm install
       npm run build
+      ls
       popd
     displayName: "Build frontend"
+    workingDirectory: 'frontend'
 
   - script: |
-      cd $(uiBuild)
       ls
-
+    workingDirectory: frontend
   - task: AzureFileCopy@4
     inputs:
-      SourcePath: $(uiBuild)
+      SourcePath: 'frontend/build'
       azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
       Destination: 'AzureBlob'
       storage: 'yadejomoviesapp'
