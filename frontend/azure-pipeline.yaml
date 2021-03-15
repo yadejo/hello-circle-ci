@@ -16,17 +16,15 @@ steps:
       versionSpec: "15.x"
     displayName: "Install Node.js"
 
-  - script: |
-      ls
-      npm install
-      npm run build
-      ls
-      popd
-    displayName: "Build frontend"
+  - script: npm install
+    displayName: "Install dependencies"
+    workingDirectory: 'frontend'
+  
+  - script: npm run build
+    displayName: "Build"
     workingDirectory: 'frontend'
 
-  - script: |
-      ls
+  - script: ls
     workingDirectory: frontend
   - task: AzureFileCopy@4
     inputs:
