@@ -26,11 +26,11 @@ steps:
       popd
     displayName: "Build frontend"
 
-  - task: ArchiveFiles@2
-    displayName: Archive
+  - task: AzureFileCopy@4
     inputs:
-      rootFolderOrFile: "$(uiBuild)"
-      includeRootFolder: false
-      archiveType: "zip"
-      archiveFile: "$(Build.ArtifactStagingDirectory)/ui-$(Build.BuildId).zip"
-      replaceExistingArchive: true
+      SourcePath: $(uiBuild)
+      azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
+      Destination: 'AzureBlob'
+      storage: 'yadejomoviesapp'
+      ContainerName: 'frontend'
+    
