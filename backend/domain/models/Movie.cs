@@ -8,14 +8,16 @@ namespace Movies.Domain.Models
         public string Title { get; private set; }
 
         public int Rating { get; private set;}
+        public string PosterUri { get; set; }
 
-        public Movie(Guid id, string title, int rating) {
+        public Movie(Guid id, string title, int rating, string posterUri) {
             this.Id = id;
             this.Title = title;
             SetRating(rating);
+            this.PosterUri = posterUri;
         }
 
-        public Movie(string title, int rating):this(Guid.NewGuid(), title, rating) {}
+        public Movie(string title, int rating, string posterUri):this(Guid.NewGuid(), title, rating, posterUri) {}
 
         public void SetRating(int rating) {
             if(ValidateRating(rating)) {

@@ -11,7 +11,7 @@ namespace Movies.DomainTests.Models
         public void SettingInvalidRating_Should_ThrowExeption()
         {
             // Arrange
-            var movie = new Movie("12 Angry Men", 8);
+            var movie = new Movie("12 Angry Men", 8, "http://auri.com");
 
             // Act -- Set a rating larger then 10
             movie.SetRating(14);

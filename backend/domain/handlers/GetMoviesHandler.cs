@@ -25,7 +25,8 @@ namespace Movies.Domain.Handlers
             {
                 Id = movie.Id,
                 Title = movie.Title,
-                Rating = movie.Rating
+                Rating = movie.Rating,
+                PosterUri = movie.PosterUri
             }).ToList();
         }
     }
@@ -35,6 +36,7 @@ namespace Movies.Domain.Handlers
         public Guid Id { get; set; }
         public string Title { get; set; }
         public int Rating { get; set; }
+        public string PosterUri { get; set; }
     }
 
     public class GetMoviesRequest : IRequest<List<GetMoviesResponse>> {}

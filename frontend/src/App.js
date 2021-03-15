@@ -3,13 +3,13 @@ import { Movie } from './components/Movie';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  
+
   useEffect(() => {
     fetchMovies().then(setMovies);
   }, [])
 
   return (
-   <div>
+   <div style={{display: "flex", flexWrap: 'wrap', justifyContent: ''}}>
      {
        movies.map(movie => <Movie {...movie} />)
      }

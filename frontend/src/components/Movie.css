@@ -1,7 +1,33 @@
+.Movie {
+    width: 200px;
+    margin: 1em;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;    overflow: hidden;
+    background-color: transparent;
+    border-radius: 4px;
+    background-color: rgb(15, 15, 15);
+    color: white;
+}
+
+.Movie h1 {
+    height: 50px;
+    padding: 0em 1em;
+    text-align: center;
+}
+
+.Movie img{
+    height: 300px;
+    object-fit: contain;
+    overflow: hidden;
+
+}
+
 .StarRating {
     display: flex;
+    padding: .5em 1em;
+    justify-content: center;
 }
 
 .StarRating_star::before {
     content: '★';
+    color: rgb(226, 193, 85)
 }

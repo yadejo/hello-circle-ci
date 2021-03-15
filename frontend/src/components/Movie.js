@@ -1,8 +1,9 @@
 import './Movie.css';
 
-export function Movie({ title, rating, onClick }) {
+export function Movie({ title, rating, posterUri, onClick }) {
     return (
-        <article onClick={onClick}>
+        <article onClick={onClick} className="Movie">
+            <img src={posterUri} />
             <h1>{title}</h1>
             <StarRating rating={rating} />
         </article>
