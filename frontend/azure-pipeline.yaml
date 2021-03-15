@@ -24,8 +24,6 @@ steps:
     displayName: "Build"
     workingDirectory: 'frontend'
 
-  - script: ls
-    workingDirectory: frontend
   - task: AzureFileCopy@4
     inputs:
       SourcePath: 'frontend/build'
