@@ -8,6 +8,6 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: cd backend
 - script: dotnet build --configuration $(buildConfiguration)
+  workingDirectory: 'backend'
   displayName: 'Build'
