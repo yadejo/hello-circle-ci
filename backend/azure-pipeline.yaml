@@ -12,12 +12,11 @@ steps:
   inputs:
     command: 'restore'
     feedsToUse: 'select'
-    workingDirectory: 'backend'
+    projects: '**/*.csproj'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     projects: '**/*.test.csproj'
-    workingDirectory: 'backend'
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
