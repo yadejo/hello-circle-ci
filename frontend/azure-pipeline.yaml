@@ -26,6 +26,10 @@ steps:
       popd
     displayName: "Build frontend"
 
+  - script: |
+      cd frontend
+      ls
+
   - task: AzureFileCopy@4
     inputs:
       SourcePath: $(uiBuild)
