@@ -32,5 +32,5 @@ steps:
       azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
       Destination: 'AzureBlob'
       storage: 'yadejomoviesapp'
-      ContainerName: 'frontend'
+      ContainerName: '$web'
     
