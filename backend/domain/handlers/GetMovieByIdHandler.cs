@@ -9,14 +9,14 @@ using MediatR;
 namespace Movies.Domain.Handlers {
     public class GetMovieByIdHandler : IRequestHandler<GetMovieByIdRequest, GetMovieByIdResponse> {
 
-        private readonly IGetMoviesRepository _getMoviesRepository;
-        public GetMovieByIdHandler(IGetMoviesRepository getMoviesRepository)
+        private readonly IMoviesRepository _moviesRepository;
+        public GetMovieByIdHandler(IMoviesRepository moviesRepository)
         {
-            _getMoviesRepository = getMoviesRepository;
+            _moviesRepository = moviesRepository;
         }
         
         public async Task<GetMovieByIdResponse> Handle(GetMovieByIdRequest request, CancellationToken cancellationToken) {
-            var movie = await _getMoviesRepository.GetMovieByIdAsync(request.Id);
+            var movie = await _moviesRepository.GetMovieByIdAsync(request.Id);
 
             return movie == null ? null : new GetMovieByIdResponse {
                 Id = movie.Id,

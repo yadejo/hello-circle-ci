@@ -11,15 +11,15 @@ namespace Movies.Domain.Handlers
     public class GetMoviesHandler : IRequestHandler<GetMoviesRequest, List<GetMoviesResponse>>
     {
 
-        private readonly IGetMoviesRepository _getMoviesRepository;
-        public GetMoviesHandler(IGetMoviesRepository getMoviesRepository)
+        private readonly IMoviesRepository _moviesRepository;
+        public GetMoviesHandler(IMoviesRepository moviesRepository)
         {
-            _getMoviesRepository = getMoviesRepository;
+            _moviesRepository = moviesRepository;
         }
 
         public async Task<List<GetMoviesResponse>> Handle(GetMoviesRequest request, CancellationToken cancellationToken)
         {
-            var movies = await _getMoviesRepository.GetAllMoviesAsync();
+            var movies = await _moviesRepository.GetAllMoviesAsync();
 
             return movies.Select(movie => new GetMoviesResponse
             {

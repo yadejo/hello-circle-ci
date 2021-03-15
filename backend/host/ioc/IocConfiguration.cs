@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Movies.Host.Ioc {
     public static class IocConfiguration {
         public static void RegisterDependencies(this IServiceCollection services) {
-            services.AddScoped<IGetMoviesRepository, InMemoryGetMoviesRepository>();
+            services.AddScoped<IMoviesRepository, InMemoryMoviesRepository>();
         }
     }
 }

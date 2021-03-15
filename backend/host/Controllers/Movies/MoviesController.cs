@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Movies.Domain.Handlers;
+using Movies.Domain.Models;
 using MediatR;
 
 namespace Movies.Host.Controllers.Movies
@@ -22,25 +23,37 @@ namespace Movies.Host.Controllers.Movies
             _mediator = mediator;
         }
 
-        [HttpGet]
-        [Route("")]
+        [HttpGet("")]
 
-        public async Task<ActionResult<List<GetMoviesResponse>>> GetAsync()
+        public async Task<ActionResult<List<GetMoviesResponse>>> GetAll()
         {
             return Ok(await _mediator.Send(new GetMoviesRequest()));
         }
 
-        [HttpGet]
-        [Route("{movieId}")]
-        public async Task<ActionResult<GetMovieByIdResponse>> GetByIdAsync(Guid movieId)
+        [HttpGet("{movieId}")]
+        public async Task<ActionResult<GetMovieByIdResponse>> GetById(Guid movieId)
         {
             var movie = await _mediator.Send(new GetMovieByIdRequest(movieId));
 
-            if(movie == null) {
+            if (movie == null)
+            {
                 return NotFound();
             }
 
             return Ok(movie);
+        }
+
+        [HttpPost("")]
+        public async Task<ActionResult<GetMovieByIdResponse>> CreateMovie([FromBody] CreateMovieRequest createMovieRequest)
+        {
+            try {
+                var response = await _mediator.Send(createMovieRequest);
+                return Created($"api/movies/{response.Id}", response);
+            } catch(InvalidRatingException) {
+                return BadRequest();
+            }
+
+           
         }
     }
 }

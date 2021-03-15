@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Movies.Infrastructure.DataAccess
 {
-    public class InMemoryGetMoviesRepository : IGetMoviesRepository
+    public class InMemoryMoviesRepository : IMoviesRepository
     {
         private static readonly List<Movie> _movies =  new List<Movie> {
                 new Movie("Twelve Angry Men", 8, "https://yadejomoviesapp.blob.core.windows.net/movieposters/041cc115-4871-4ef1-afe3-324a1527081e"),
@@ -21,6 +21,11 @@ namespace Movies.Infrastructure.DataAccess
 
         public Task<Movie> GetMovieByIdAsync(Guid id) {
             return Task.FromResult(_movies.FirstOrDefault(movie => movie.Id == id));
+        }
+
+        public Task<Movie> SaveMovieAsync(Movie movie) {
+            _movies.Add(movie);
+            return Task.FromResult(movie);
         }
     }
 }
