@@ -22,3 +22,16 @@ steps:
   inputs:
     command: 'build'
     workingDirectory: 'backend'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    workingDirectory: 'backend'
+    
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
+    appType: 'webAppLinux'
+    WebAppName: 'yadejo-movies-api'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/**/*.zip'
