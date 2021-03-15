@@ -27,7 +27,7 @@ steps:
     displayName: "Build frontend"
 
   - script: |
-      cd frontend
+      cd $(uiBuild)
       ls
 
   - task: AzureFileCopy@4
