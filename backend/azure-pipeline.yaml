@@ -8,15 +8,12 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
 - task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    feedsToUse: 'select'
-    projects: '**/*.csproj'
-- task: DotNetCoreCLI@2
+  displayName: Test
   inputs:
     command: 'test'
-    projects: '**/*.test.csproj'
+    projects: '**/*.tests.csproj'
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -27,11 +24,11 @@ steps:
     command: 'publish'
     publishWebProjects: true
     workingDirectory: 'backend'
-    
+    zipAfterPublish: true
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
     appType: 'webAppLinux'
     WebAppName: 'yadejo-movies-api'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/**/*.zip'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
