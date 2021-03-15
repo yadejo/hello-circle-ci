@@ -26,6 +26,11 @@ steps:
     publishWebProjects: true
     workingDirectory: 'backend'
     zipAfterPublish: true
+- task: FileTransform@1
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    fileType: 'json'
+    targetFiles: '**/appsettings.json'
 - task: AzureRmWebAppDeployment@4
   displayName: Deploy to Azure
   inputs:
