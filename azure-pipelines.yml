@@ -11,6 +11,15 @@ pool:
 
 steps:
   - task: DotNetCoreCLI@2
+    displayName: Build
     inputs:
       command: 'build'
       workingDirectory: 'backend'
+      
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
+      projects: '**/*.tests.csproj'
+      workingDirectory: 'backend'
+    
+
