@@ -17,9 +17,32 @@ steps:
       workingDirectory: 'backend'
       
   - task: DotNetCoreCLI@2
+    displayName: Test
     inputs:
       command: 'test'
       projects: '**/*.tests.csproj'
       workingDirectory: 'backend'
+  
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+      workingDirectory: 'backend'
+      zipAfterPublish: true
+  
+  - task: FileTransform@1
+    inputs:
+      folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+      fileType: 'json'
+      targetFiles: '**/appsettings.json'
     
+  - task: AzureRmWebAppDeployment@4
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
+      appType: 'webAppLinux'
+      WebAppName: 'movies-app-api-2'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
 
