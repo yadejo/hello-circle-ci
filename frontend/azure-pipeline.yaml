@@ -6,12 +6,9 @@
 trigger:
   - master
 
-variables:
-  uiSource: ""
-  uiBuild: "$(uiSource)/build"
 
 pool:
-  vmthumbnail: ../"ubuntu-latest"
+  vmImage: 'windows-latest'
 
 steps:
   - task: NodeTool@0
@@ -19,25 +16,20 @@ steps:
       versionSpec: "15.x"
     displayName: "Install Node.js"
 
-  - script: |
-      pushd $(uiSource)
-      npm install
-      npm run build
-      popd
-    displayName: "Build frontend"
+  - script: npm install
+    displayName: "Install dependencies"
+    workingDirectory: 'frontend'
+  
+  - script: npm run build
+    displayName: "Build"
+    workingDirectory: 'frontend'
 
-  - task: ArchiveFiles@2
-    displayName: Archive
+  - task: AzureFileCopy@4
     inputs:
-      rootFolderOrFile: "$(uiBuild)"
-      includeRootFolder: false
-      archiveType: "zip"
-      archiveFile: "$(Build.ArtifactStagingDirectory)/ui-$(Build.BuildId).zip"
-      replaceExistingArchive: true
-
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
-    inputs:
-      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-      ArtifactName: "drop"
-      publishLocation: "Container"
+      SourcePath: 'frontend/build/*'
+      CleanTargetBeforeCopy: true
+      azureSubscription: 'Visual Studio Enterprise Subscription – MPN(0249c9fe-9eb6-46ca-9019-eb9d22c21d71)'
+      Destination: 'AzureBlob'
+      storage: 'yadejomoviesapp'
+      ContainerName: '$web'
+      
