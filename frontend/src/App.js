@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Movie } from './components/Movie';
+import { get } from './api'
 
 function App() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetchMovies().then(setMovies);
+    get("movies").then(setMovies);
   }, [])
 
   return (
@@ -17,9 +18,5 @@ function App() {
   );
 }
 
-async function fetchMovies() {
-  const response = await fetch("https://localhost:5001/api/movies");
-  return await response.json();
-}
 
 export default App;

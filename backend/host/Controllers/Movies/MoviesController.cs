@@ -52,8 +52,6 @@ namespace Movies.Host.Controllers.Movies
             } catch(InvalidRatingException) {
                 return BadRequest();
             }
-
-           
         }
     }
 }
