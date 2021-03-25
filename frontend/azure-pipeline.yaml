@@ -23,6 +23,8 @@ steps:
   - script: npm run build
     displayName: "Build"
     workingDirectory: 'frontend'
+    env:
+      API_BASE_URI: $(API_BASE_URI)
 
   - task: AzureFileCopy@4
     inputs:
